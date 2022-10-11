@@ -1,4 +1,8 @@
-// Magma code to support the calculations in the paper: On some Generalized Fermat Equations of the form x^2+y^2l=z^p.
+// Magma code to support the computations in the paper On some generalized Fermat equations of the form x^2 + y^2n = z^p by Philippe Michaud-Jacobs.
+// See https://github.com/michaud-jacobs/gen-fermat for all the code files and links to the paper
+
+// The code works on Magma V2.26-10
+// The output is contained withing the file
 
 // This code verifies the computations of Lemma 7.2 and Lemma 7.3.
 
@@ -31,9 +35,11 @@ assert IsIsomorphic(K, ext<K4 | Z^2-d>);  // verification that K = K4(\sqrt(d))
 
 for n in [14,11] do
     XX := SmallModularCurve(n);  // the curve X_0(N)
-    assert Rank(XX) eq 0;
+    rank_XX, tf := Rank(XX);
+    assert rank_XX eq 0 and tf;
     XXK4 := ChangeRing(XX,K4);
-    M,pi := MordellWeilGroup(XXK4); // (true true)
+    M,pi,tf1,tf2 := MordellWeilGroup(XXK4); // (true true)
+    assert tf1 and tf2;
     assert IsIsomorphic(TorsionSubgroup(XXK4),TorsionSubgroup(XX));
     gen:= pi(M.2);  // generator for free part
     for i in [1,2,3] do
@@ -53,8 +59,10 @@ XK4:=ChangeRing(X,K4);
 XF:=ChangeRing(X,F);
 
 MordellWeilGroup(X);  // Z/6Z (true true)
-MF,piF:=MordellWeilGroup(XF);  // Z/6Z + Z (true true)
-MW,pi:=MordellWeilGroup(XK4);  // Z/6Z + Z  (true true), takes about 1 minute
+MF,piF,tf1,tf2:=MordellWeilGroup(XF);  // Z/6Z + Z (true true)
+assert tf1 and tf2;
+MW,pi,tf1,tf2:=MordellWeilGroup(XK4);  // Z/6Z + Z  (true true), about 1 minute
+assert tf1 and tf2;
 R:= XK ! pi(MW.2);
 Q:= XK ! pi(MW.1);
 
@@ -65,7 +73,8 @@ TorsXK:=TorsionSubgroup(XK); // Z/6Z
 XdK4:=QuadraticTwist(XK4,d);
 XdK:=ChangeRing(XdK4,K);
 
-time Md,pid:=MordellWeilGroup(XdK4); // Z/2Z (true true), takes about 5 minutes
+time Md,pid,tf1,tf2:=MordellWeilGroup(XdK4); // Z/2Z (true true), about 90 seconds
+assert tf1 and tf2;
 
 // We now verify 2-divisibility
 
@@ -96,8 +105,8 @@ CremonaReference(C); // 52a1
 CK4 := ChangeRing(C,K4);
 CdK4 := QuadraticTwist(CK4,d);
 
-Rank(CK4);  // 0 True
-Rank(CdK4); // 0 True
+Rank(CK4);  // 0 true
+Rank(CdK4); // 0 true
 TorsionSubgroup(ChangeRing(C,K)); // Z/2Z
 
 assert ModularDegree(C) eq 3;
@@ -133,7 +142,7 @@ assert Degree(MinimalPolynomial(red)) eq 2;  // so not defined over F2.
 
 /////////////////////////////////////////////////////////////////////////////////
 
-// We now verify the first paragraph of the proof of Lemma 7.2 following [p. 1165, 1]
+// We now verify the first paragraph of the proof of Lemma 7.2 following [1, p. 1165]
 // This is the code of Anni and Siksek [1] (very slightly adapted).
 
 i := 1; // Choose case
@@ -194,4 +203,35 @@ print "The set of B_{T^prime,D}(u_1,...,u_d) is ", BSet;
 lset:=&cat[PrimeDivisors(B) : B in BSet];
 lset:=[l : l in lset | l ge 5];  // We're only interested in ell >= 5.
 print "The set of surviving primes ell is", lset;
+
+/* Output
+
+Output for case 1:
+
+The following is our system of totally positive units [
+    th^2 + 2*th + 1,
+    th^7 + 2*th^6 - 4*th^5 - 8*th^4 + 4*th^3 + 8*th^2,
+    th^7 - 7*th^5 + 14*th^3 - 7*th + 2,
+    th^6 - 6*th^4 + 9*th^2,
+    th + 2,
+    th^4 - 4*th^2 + 4,
+    3*th^7 + 6*th^6 - 16*th^5 - 34*th^4 + 16*th^3 + 47*th^2 + 11*th - 3
+]
+The set of B_{T^prime,D}(u_1,...,u_d) is  { 1, 16777216 }
+The set of surviving primes ell is []
+
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+Output for case 2:
+
+The following is our system of totally positive units [
+    1/2*(-K.1^3 + 10*K.1 + 5),
+    K.1^2,
+    1/2*(5*K.1^3 + 14*K.1^2 - 2*K.1 - 1)
+]
+The set of B_{T^prime,D}(u_1,...,u_d) is  { 1, 4096 }
+The set of surviving primes ell is []
+ 
+*/
 

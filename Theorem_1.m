@@ -1,4 +1,7 @@
-// Magma code to support the calculations in the paper: On some Generalized Fermat Equations of the form x^2+y^2l=z^p.
+// Magma code to support the computations in the paper On some generalized Fermat equations of the form x^2 + y^2n = z^p by Philippe Michaud-Jacobs.
+// See https://github.com/michaud-jacobs/gen-fermat for all the code files and links to the paper
+
+// The code works on Magma V2.26-10
 
 // This code carries out the computations needed for the proof of Theorem 1.
 

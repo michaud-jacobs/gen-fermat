@@ -1,6 +1,8 @@
-// Magma code to support the calculations in the paper: On some Generalized Fermat Equations of the form x^2+y^2l=z^p.
+// Magma code to support the computations in the paper On some generalized Fermat equations of the form x^2 + y^2n = z^p by Philippe Michaud-Jacobs.
+// See https://github.com/michaud-jacobs/gen-fermat for all the code files and links to the paper
 
-// This code verifies the computations of Theorem 3.
+// The code works on Magma V2.26-10
+// The output is at the end of the file
 
 // We start by using the code of Anni and Siksek [1] (very slightly adapted) to eliminate all newforms other than g_1, g_2, g_3, and g_4.
 
@@ -89,7 +91,7 @@ end function;
 // Given:
 // an eigenform ff; the maximal order Off of the field of Hecke eigenvalues Off;
 // a rational prime q;
-// returns B_q(ff) in the notation of Section 11.
+// returns B_q(ff) in the notation of Section 11 of [1].
 		
 Bq:=function(ff,Off,q);
 	B:=q*Off;
@@ -103,7 +105,7 @@ end function;
 		
 // Given: an eigenform ff; the maximal order Off of the field of Hecke eigenvalues Off;
 // a set S of rational primes q different from 2, p
-// returns B_S(ff) in the notation of Section 11.
+// returns B_S(ff) in the notation of Section 11 of [1].
 		
 BS:=function(ff,Off,S);
 	B:=&+[Bq(ff,Off,q) : q in S];
@@ -120,8 +122,8 @@ time decomp:=NewformDecomposition(Hnew);
 decomp;
 
 if cs eq 1 then 
-     interval:=[1..#decomp-4];  // computations cannot be carried out for the last 4 forms
-else interval:=[1..#decomp];
+     interval:=[1..#decomp-4];  // computations cannot be carried out for the last 4 forms (in a reasonable time)
+else interval:=[1..#decomp];    // We deal with these separately afterwards
 end if;
 
 for i in interval do
@@ -137,6 +139,8 @@ for i in interval do
 	survivors:=[l : l in PrimeDivisors(Norm(B)) | l in {2,3,p} eq false];
 	print "surviving primes ell=", survivors;
 end for;
+
+// Output at end of the file
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -253,5 +257,301 @@ Factorisation(Cs[1]);  // 2^17 x 3^8
 Factorisation(Cs[2]);  // 2^18 x 3^7 x 5^2
 Factorisation(Cs[3]);  // 2^18 x 3^8 x 5^1
 Factorisation(Cs[4]);  // 2^20 x 3^2 x 5^2
+
+
+
+/* Output
+
+Output for case 1:
+
++++++++++++
+Dealing with the 1 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 26> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 2 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 28> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 3 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 24> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 4 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 34> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 5 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 24>, <3, 9> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 6 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 26> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 7 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 28> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 8 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 28> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 9 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) []
+surviving primes ell= []
++++++++++++
+Dealing with the 10 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) []
+surviving primes ell= []
++++++++++++
+Dealing with the 11 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 34> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 12 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) []
+surviving primes ell= []
++++++++++++
+Dealing with the 13 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 34> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 14 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 34> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 15 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 26> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 16 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 24> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 17 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 24> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 18 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 26> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 19 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 34> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 20 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) []
+surviving primes ell= []
++++++++++++
+Dealing with the 21 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 34> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 22 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 34> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 23 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 34> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 24 -th eigenform
+this has Hecke eigenvalue field of degree 2
+Factoristion of B_S(ff) [ <2, 52> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 25 -th eigenform
+this has Hecke eigenvalue field of degree 2
+Factoristion of B_S(ff) [ <2, 52> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 26 -th eigenform
+this has Hecke eigenvalue field of degree 2
+Factoristion of B_S(ff) [ <2, 56>, <17, 2> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 27 -th eigenform
+this has Hecke eigenvalue field of degree 2
+Factoristion of B_S(ff) [ <2, 52> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 28 -th eigenform
+this has Hecke eigenvalue field of degree 2
+Factoristion of B_S(ff) [ <2, 52> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 29 -th eigenform
+this has Hecke eigenvalue field of degree 2
+Factoristion of B_S(ff) [ <2, 56> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 30 -th eigenform
+this has Hecke eigenvalue field of degree 6
+Factoristion of B_S(ff) [ <2, 80> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 31 -th eigenform
+this has Hecke eigenvalue field of degree 6
+Factoristion of B_S(ff) [ <2, 80> ]
+surviving primes ell= []
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
+Output for case 2:
+
++++++++++++
+Dealing with the 1 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) []
+surviving primes ell= []
++++++++++++
+Dealing with the 2 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <3, 5> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 3 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <3, 5> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 4 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) []
+surviving primes ell= []
++++++++++++
+Dealing with the 5 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 10>, <3, 5> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 6 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 10>, <3, 5> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 7 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 14> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 8 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 16>, <3, 7> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 9 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) []
+surviving primes ell= []
++++++++++++
+Dealing with the 10 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 14> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 11 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <3, 5> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 12 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 14>, <3, 5> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 13 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 10>, <3, 5> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 14 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 14> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 15 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <2, 10>, <3, 5> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 16 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) []
+surviving primes ell= []
++++++++++++
+Dealing with the 17 -th eigenform
+this has Hecke eigenvalue field of degree 1
+Factoristion of B_S(ff) [ <3, 5> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 18 -th eigenform
+this has Hecke eigenvalue field of degree 2
+Factoristion of B_S(ff) [ <2, 28>, <5, 4> ]
+surviving primes ell= [ 5 ]
++++++++++++
+Dealing with the 19 -th eigenform
+this has Hecke eigenvalue field of degree 2
+Factoristion of B_S(ff) [ <2, 28>, <5, 4> ]
+surviving primes ell= [ 5 ]
++++++++++++
+Dealing with the 20 -th eigenform
+this has Hecke eigenvalue field of degree 4
+Factoristion of B_S(ff) [ <2, 40> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 21 -th eigenform
+this has Hecke eigenvalue field of degree 4
+Factoristion of B_S(ff) [ <2, 40> ]
+surviving primes ell= []
++++++++++++
+Dealing with the 22 -th eigenform
+this has Hecke eigenvalue field of degree 6
+Factoristion of B_S(ff) [ <2, 44>, <5, 8> ]
+surviving primes ell= [ 5 ]
++++++++++++
+Dealing with the 23 -th eigenform
+this has Hecke eigenvalue field of degree 6
+Factoristion of B_S(ff) [ <2, 44>, <5, 8> ]
+surviving primes ell= [ 5 ]
++++++++++++
+Dealing with the 24 -th eigenform
+this has Hecke eigenvalue field of degree 8
+Factoristion of B_S(ff) [ <2, 40> ]
+surviving primes ell= []
+
+*/
+
+
+
+
+
+
 
 
