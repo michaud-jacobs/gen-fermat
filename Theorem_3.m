@@ -253,11 +253,12 @@ time for i in [2..#T] do
      Es:=NEs;
 end for;
 
+// Time: 1257.210
+
 Factorisation(Cs[1]);  // 2^17 x 3^8
 Factorisation(Cs[2]);  // 2^18 x 3^7 x 5^2
 Factorisation(Cs[3]);  // 2^18 x 3^8 x 5^1
 Factorisation(Cs[4]);  // 2^20 x 3^2 x 5^2
-
 
 
 /* Output
